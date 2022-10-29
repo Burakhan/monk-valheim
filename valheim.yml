@@ -1,0 +1,40 @@
+namespace: monk-valheim
+
+valheim:
+  metadata:
+    defines: metadata
+    name: Growthbook
+    description: GrowthBook is an open source platform that gives any company the power of a customized feature flagging and A/B testing system.
+    website: https://www.growthbook.io/
+    publisher: monk.io
+    icon: https://uploads-ssl.webflow.com/62019b0bccbb27eb8ff291bb/62019c940010d720321b0356_growth-book-logo-white.svg
+  defines: runnable
+  variables:
+    monk_valheim_server_name:
+      env: SERVER_NAME
+      type: string
+      value: Monk Server
+    monk_valheim_world_name:
+      env: WORLD_NAME
+      type: string
+      value: Dedicated
+    monk_valheim_server_password:
+      env: SERVER_PASS
+      type: string
+      value: monk
+    monk_valheim_server_public:
+      env: SERVER_PUBLIC
+      type: bool
+      value: true
+    volume_local:
+      type: string
+      value: <- `${monk-volume-path}/growthbook`
+  containers:
+    monk-valheim:
+      image: 'ghcr.io/lloesche/valheim-server'
+      bash: /usr/local/sbin/bootstrap
+      ports:
+        - <- `0.0.0.0:2456-2457:2456-2457/udp`
+        - <- `0.0.0.0:9001:9001`
+      paths:
+        - <- `${volume_local}:/usr/local/src/app/packages/back-end/uploads`

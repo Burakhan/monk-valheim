@@ -1,0 +1,16 @@
+namespace: monk-valheim
+
+stack:
+  defines: process-group
+  runnable-list:
+    - monk-valheim/valheim
+  variables:
+    growthbook_port1:
+      type: int
+      value: 3100
+    growthbook_port2:
+      type: int
+      value: 3000
+    db_password:
+      type: string
+      value: monk
